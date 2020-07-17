@@ -1,0 +1,21 @@
+/* main {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+} */
+#board {
+  display:flex;
+  width: 60vw;
+  flex-wrap:wrap;
+  position:relative;
+}
+
+.tile {
+  width:3vw;
+  height:3vw;
+  position: relative;
+}
+
+.dino {
+
+}
