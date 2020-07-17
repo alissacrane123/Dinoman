@@ -1,21 +1,41 @@
-/* main {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-} */
+main {
+  width: 60vw;
+  position: relative;
+}
+
 #board {
   display:flex;
   width: 60vw;
   flex-wrap:wrap;
-  position:relative;
+  /* position:relative; */
 }
 
-.tile {
+.tile-cont {
   width:3vw;
   height:3vw;
   position: relative;
 }
 
-.dino {
+.tile {
+  width:3vw;
+  height:3vw;
+  position: absolute;
+  top:0;
+  left:0;
+}
 
+.dino-img {
+ /* width:3vw; */
+  height:3vw;
+  /* position: absolute; */
+  /* top:0;
+  left:0;
+  z-index: 2; */
+}
+
+.grid-layer {
+  height:3vw;
+  width:3vw;
+  z-index: 2;
+  position: absolute;
 }

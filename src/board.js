@@ -12,8 +12,10 @@ class Board {
 
     for (let i = 0; i < this. numRows; i++) {
       for (let j = 0; j < this.numCols; j++) {
+        let tileCont = document.createElement('div');
+        
         let tile = document.createElement('img');
-        tile.setAttribute('id', `row${i}-col${j}`);
+        tileCont.setAttribute('id', `row${i}-col${j}`);
         let src = this.getImgSrc(i, j);
         let type = 'barrier';
         if (!src) {
@@ -22,7 +24,9 @@ class Board {
         }
         tile.setAttribute('src', src);
         tile.setAttribute('class', `tile ${type}`)
-        board.appendChild(tile);
+        tileCont.setAttribute('class', `tile-cont ${type}`)
+        tileCont.appendChild(tile);
+        board.appendChild(tileCont);
       }
     }
   }
