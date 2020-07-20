@@ -1,6 +1,7 @@
 const Board = require('./board');
 const Dinosaur = require('./dinosaur');
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
   let b = new Board(20, 14);

@@ -10,13 +10,13 @@ main {
   /* position:relative; */
 }
 
-.tile-cont {
+.tile {
   width:3vw;
   height:3vw;
   position: relative;
 }
 
-.tile {
+.tile-img {
   width:3vw;
   height:3vw;
   position: absolute;
@@ -37,5 +37,53 @@ main {
   height:3vw;
   width:3vw;
   z-index: 2;
+  overflow: hidden;
   position: absolute;
+}
+
+.down {
+  transform: rotate(90deg) translateY(0%);
+  -webkit-transform: rotate(90deg) translateY(0%);
+  -ms-transform: rotate(90deg) translateY(0%);
+}
+
+.rotate180 {
+  transform: rotate(180deg) translateY(0%);
+  -webkit-transform: rotate(180deg) translateY(0%);
+  -ms-transform: rotate(180deg) translateY(0%);
+}
+
+.up {
+  transform: rotate(270deg) translateY(0%);
+  -webkit-transform: rotate(270deg) translateY(0%);
+  -ms-transform: rotate(270deg) translateY(0%);
+}
+
+.left {
+   -moz-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+
+/* .right {
+   -moz-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+} */
+
+.animate {
+  transition:left 1s, top 1s;
+  /* transition:top 1s; */
+	/* animation-duration: 2.2s; */
+	/* animation-name: paragato;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+    -webkit-animation-duration: 2.2s;
+	-webkit-animation-name: paragato;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out; */
 }

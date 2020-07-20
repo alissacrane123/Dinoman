@@ -23,8 +23,8 @@ class Board {
           type = 'coin';
         }
         tile.setAttribute('src', src);
-        tile.setAttribute('class', `tile ${type}`)
-        tileCont.setAttribute('class', `tile-cont ${type}`)
+        tile.setAttribute('class', `tile-img ${type}`)
+        tileCont.setAttribute('class', `tile ${type}`)
         tileCont.appendChild(tile);
         board.appendChild(tileCont);
       }
@@ -141,7 +141,7 @@ class Board {
   getPosition(col, row) {
     let xPos = (window.innerWidth / 100) * (col * 3);
     let yPos = (window.innerWidth / 100) * (row * 3);
-    console.log(xPos, yPos);
+    // console.log(xPos, yPos);
     return [xPos, yPos];
   }
 }
