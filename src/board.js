@@ -4,6 +4,9 @@ class Board {
     this.numRows = height;
     this.numCols = width;
 
+    this.grid = new Array();
+    this.vectorRef = this.createVectorRef();
+
     this.renderBoard();
   }
 
@@ -11,6 +14,7 @@ class Board {
     let board = document.getElementById('board');
 
     for (let i = 0; i < this. numRows; i++) {
+      let row = new Array();
       for (let j = 0; j < this.numCols; j++) {
         let tileCont = document.createElement('div');
         
@@ -21,6 +25,9 @@ class Board {
         if (!src) {
           src = '../images/dot.gif';
           type = 'coin';
+          row[j] = 1;
+        } else {
+          row[j] = 0;
         }
         tile.setAttribute('src', src);
         tile.setAttribute('class', `tile-img ${type}`)
@@ -28,7 +35,50 @@ class Board {
         tileCont.appendChild(tile);
         board.appendChild(tileCont);
       }
+      this.grid[i] = row
     }
+    this.fillGrid();
+  }
+
+  createVectorRef() {
+    let t2 = new Array();
+    t2[1] = [1];
+    t2[2] = [2];
+    t2[4] = [4];
+    t2[8] = [8];
+    t2[3] = [1, 2];
+    t2[9] = [1, 8];
+    t2[10] = [2, 8];
+    t2[12] = [4, 8];
+    t2[5] = [1, 4];
+    t2[6] = [2, 4];
+    t2[7] = [1, 2, 4];
+    t2[11] = [1, 2, 8];
+    t2[13] = [1, 4, 8];
+    t2[14] = [2, 4, 8];
+    t2[15] = [1, 2, 4, 8];
+    return t2;
+  }
+
+  fillGrid() {
+    let grid = this.grid.slice();
+    for (let row = 1; row < grid.length-1; row++) {
+
+      for (let col = 1; col < grid[row].length-1; col++) {
+        let tile = this.grid[row][col];
+        if (tile) {
+          let left = this.grid[row][col-1] ? 1 : 0;
+          let right = this.grid[row][col+1] ? 2 : 0;
+          let top = this.grid[row-1][col] ? 4 : 0;
+          let bottom = this.grid[row+1][col] ? 8: 0;
+  
+          let sum = left + right + top + bottom;
+          grid[row][col] = sum
+        }
+        
+      }
+    }
+    this.grid = grid;
   }
 
   getImgSrc(row, col) {
@@ -143,6 +193,25 @@ class Board {
     let yPos = (window.innerWidth / 100) * (row * 3);
     // console.log(xPos, yPos);
     return [xPos, yPos];
+  }
+
+  setVectorGrid() {
+    return new Array(
+      "00000000000000000000",   // 1st row
+      "01000205000060100020",   // 2nd row
+      "00000506000050600000",   // ...
+      "05070605000060507060",
+      "00000000000000000000",
+      "00000000000000000000",
+      "06030600000000504050",
+      "00000000000000000000",
+      "03700908700780900740",
+      "00000000000000000000",
+      "01820001800820001820",
+      "00000000000000000000",
+      "03080809000090808040",
+      "00000000000000000000"    // last row
+    );
   }
 }
 

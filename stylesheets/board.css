@@ -74,7 +74,7 @@ main {
 } */
 
 .animate {
-  transition:left 1s, top 1s;
+  transition:left .05s, top .05s;
   /* transition:top 1s; */
 	/* animation-duration: 2.2s; */
 	/* animation-name: paragato;
@@ -86,4 +86,8 @@ main {
 	-webkit-animation-direction: alternate;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out; */
+}
+
+.asteroid.animate {
+  transition:left .2s, top .2s;
 }
