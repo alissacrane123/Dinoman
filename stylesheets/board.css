@@ -87,7 +87,3 @@ main {
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out; */
 }
-
-.asteroid.animate {
-  transition:left .2s, top .2s;
-}

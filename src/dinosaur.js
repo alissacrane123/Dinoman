@@ -103,13 +103,10 @@ class Dinosaur extends MovingObject {
 
       this.xPos = this.xPos + this.xDir * this.step;
       this.yPos = this.yPos + this.yDir * this.step;
-      // debugger
+
       if (this.osx == 0 && this.osy === 0) {
         this.updateRowAndCol();
       } 
-      // else {
-      //   this.placeObject();
-      // }
 
       this.placeObject();
       this.collectCoin();
@@ -145,12 +142,6 @@ class Dinosaur extends MovingObject {
     this.placeObject();
   }
 
-  // updateRowAndCol() {
-  //   this.row += this.yDir;
-  //   this.col += this.xDir;
-  //   // this.placeObject();
-  //   // this.collectCoin();
-  // }
 
   updateDir(dir, xDir, yDir) {
     this.el.classList.remove(this.dir);

@@ -16,3 +16,8 @@
   /* background-position: -0vw -3vw; */
   background-image: url('../images/asteroids.png');
 }
+
+
+.asteroid.animate {
+  transition:left .7s, top .7s;
+}

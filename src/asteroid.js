@@ -18,13 +18,34 @@ class Asteroid extends MovingObject{
       this.updateRowAndCol();
       this.xPos = this.xPos + (this.xDir * this.dx);
       this.yPos = this.yPos + (this.yDir * this.dy);
-      // debugger
 
       this.placeObject();
-      
+    } else {
+      // debugger
+      let value = this.board.grid[this.row][this.col];
+      let vectors = this.board.vectorRef[value]
+      let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
+
+      this.updateDir(randomVector);
     }
 
     this.timer = setTimeout(this.move, 300);
+  }
+
+  updateDir(vector) {
+    if (vector === 1) {
+      this.xDir = -1;
+      this.yDir = 0;
+    } else if (vector === 2) {
+      this.xDir = 1;
+      this.yDir = 0;
+    } else if (vector === 4) {
+      this.xDir = 0;
+      this.yDir = -1;
+    } else if (vector === 8) {
+      this.xDir = 0;
+      this.yDir = 1;
+    }
   }
 
 
