@@ -17,15 +17,39 @@ class Game {
   newGame() {
     let main = document.getElementById("main");
     if (this.dino) {
-      main.removeChild(this.dino.el);
-      main.removeChild(this.asteroid.el);
+			main.removeChild(this.dino.el);
+			
+			document.querySelectorAll('.asteroid').forEach(node => {
+				node.parentElement.removeChild(node);
+			})
+			// this.clearAllTimers();
     }
-    this.board.resetBoard();
+		this.board.resetBoard();
+		
 		this.dino = new Dinosaur(8, 9, 1, 0, this.board);
 		this.createDino();
-		this.asteroid = new Asteroid(5, 9, 0, 1, this.board, this.dino, this);
-		this.createAsteroid(0);
-  }
+
+		this.asteroids = []
+
+		let ops = [[5,9,0,1],[6,9,1,0],[6,10,-1,0],[5,10,0,-1]];
+		for (let i = 0; i < 4; i++) {
+			let asteroid = new Asteroid(...ops[i], this.board, this.dino, this);
+			this.asteroids.push(asteroid);
+			this.createAsteroid(i);
+		}
+
+	}
+	
+	clearAllTimers() {
+		this.asteroids.forEach(asteroid => {
+			asteroid.moving = false;
+			clearTimeout(asteroid.timer)
+			clearInterval(asteroid.interval);
+		});
+		this.dino.moving = false;
+		clearTimeout(this.dino.timer)
+		clearInterval(this.dino.interval);
+	}
 
 	createDino() {
 		this.dino.el = document.createElement("div");
@@ -47,13 +71,13 @@ class Game {
 		asteroid.appendChild(astImg);
 		let main = document.getElementById("main");
 		main.appendChild(asteroid);
-		this.asteroid.el = asteroid;
-		this.asteroid.astImg = astImg;
+		this.asteroids[i].el = asteroid;
+		this.asteroids[i].astImg = astImg;
 
-		this.asteroid.astImg.style.backgroundPositionX = '-0vw';
-		this.asteroid.astImg.style.backgroundPositionY = '-3vw';
-		this.asteroid.animate();
-		this.asteroid.placeObject();
+		this.asteroids[i].astImg.style.backgroundPositionX = '-0vw';
+		this.asteroids[i].astImg.style.backgroundPositionY = '-3vw';
+		this.asteroids[i].animate();
+		this.asteroids[i].placeObject();
 	}
 
 }

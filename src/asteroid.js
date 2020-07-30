@@ -84,10 +84,11 @@ class Asteroid extends MovingObject{
 	}
 
 	handleDinoCollision() {
-		this.dino.moving = false;
-		this.moving = false;
-		clearInterval(this.dino.interval);
-		clearTimeout(this.dino.timer)
+		// this.dino.moving = false;
+		// this.moving = false;
+		// clearInterval(this.dino.interval);
+		// clearTimeout(this.dino.timer)
+		this.game.clearAllTimers();
 		let reset = this.game.newGame;
 		setTimeout(reset, 1000);
 	}
@@ -97,14 +98,6 @@ class Asteroid extends MovingObject{
 		return array;
 	}
 
-	
-	// changeDir() {
-	// 	let value = this.board.grid[this.row][this.col];
-	// 	let vectors = this.board.vectorRef[value]
-	// 	let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
-
-	// 	this.updateDir(randomVector);
-	// }
 
   updateDir(vector) {
 		if (this.vector === vector) return;
