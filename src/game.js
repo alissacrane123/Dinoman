@@ -15,29 +15,32 @@ class Game {
   }
 
   newGame() {
-    let main = document.getElementById("main");
     if (this.dino) {
-			main.removeChild(this.dino.el);
-			
-			document.querySelectorAll('.asteroid').forEach(node => {
-				node.parentElement.removeChild(node);
-			})
-			// this.clearAllTimers();
+			this.removeMovingObjects();
     }
 		this.board.resetBoard();
-		
+		this.createMovingObjects();
+	}
+
+	removeMovingObjects() {
+		let main = document.getElementById("main");
+		main.removeChild(this.dino.el);
+		document.querySelectorAll('.asteroid').forEach(node => {
+			node.parentElement.removeChild(node);
+		})
+	}
+
+	createMovingObjects() {
 		this.dino = new Dinosaur(8, 9, 1, 0, this.board);
-		this.createDino();
+		this.createDinoEl();
 
 		this.asteroids = []
-
-		let ops = [[5,9,0,1],[6,9,1,0],[6,10,-1,0],[5,10,0,-1]];
+		let ops = [[5, 9, 0, 1], [6, 9, 1, 0], [6, 10, -1, 0], [5, 10, 0, -1]];
 		for (let i = 0; i < 4; i++) {
 			let asteroid = new Asteroid(...ops[i], this.board, this.dino, this);
 			this.asteroids.push(asteroid);
-			this.createAsteroid(i);
+			this.createAsteroidEl(i);
 		}
-
 	}
 	
 	clearAllTimers() {
@@ -51,7 +54,7 @@ class Game {
 		clearInterval(this.dino.interval);
 	}
 
-	createDino() {
+	createDinoEl() {
 		this.dino.el = document.createElement("div");
 		this.dino.dinoImg = document.createElement("img");
 		this.dino.el.appendChild(this.dino.dinoImg);
@@ -61,23 +64,28 @@ class Game {
 		this.dino.startAnimation();
 	}
 
-	createAsteroid(i) {
-		let asteroid = document.createElement("div");
-		asteroid.setAttribute("class", "grid-layer asteroid animate");
-		asteroid.setAttribute("id", "gl2");
-		let astImg = document.createElement("div");
-		astImg.setAttribute("class", "ast-img");
-		astImg.setAttribute("id", `asteroid-${i}}`);
-		asteroid.appendChild(astImg);
-		let main = document.getElementById("main");
-		main.appendChild(asteroid);
-		this.asteroids[i].el = asteroid;
-		this.asteroids[i].astImg = astImg;
+	createAsteroidEl(i) {
+		let asteroid = this.asteroids[i];
 
-		this.asteroids[i].astImg.style.backgroundPositionX = '-0vw';
-		this.asteroids[i].astImg.style.backgroundPositionY = '-3vw';
-		this.asteroids[i].animate();
-		this.asteroids[i].placeObject();
+		let asteroidEl = document.createElement("div");
+		let astImg = document.createElement("div");
+		let main = document.getElementById("main");
+		asteroidEl.appendChild(astImg);
+		main.appendChild(asteroidEl);
+
+		asteroid.el = asteroidEl;
+		asteroid.astImg = astImg;
+
+		// asteroid.setAttribute("class", "grid-layer asteroid animate");
+		// asteroid.setAttribute("id", "gl2");
+		// astImg.setAttribute("class", "ast-img");
+		// astImg.setAttribute("id", `asteroid-${i}}`);
+
+		// this.asteroids[i].astImg.style.backgroundPositionX = '-0vw';
+		// this.asteroids[i].astImg.style.backgroundPositionY = '-3vw';
+		asteroid.setAttributes(i);
+		asteroid.animate();
+		asteroid.placeObject();
 	}
 
 }

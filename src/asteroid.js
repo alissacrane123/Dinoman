@@ -84,10 +84,6 @@ class Asteroid extends MovingObject{
 	}
 
 	handleDinoCollision() {
-		// this.dino.moving = false;
-		// this.moving = false;
-		// clearInterval(this.dino.interval);
-		// clearTimeout(this.dino.timer)
 		this.game.clearAllTimers();
 		let reset = this.game.newGame;
 		setTimeout(reset, 1000);
@@ -187,6 +183,16 @@ class Asteroid extends MovingObject{
 		if (this.xDir < 0) return 1;
 		if (this.yDir > 0) return 8;
 		if (this.yDir < 0) return 4;
+	}
+
+	setAttributes(i) {
+		this.el.setAttribute("class", "grid-layer asteroid animate");
+		this.el.setAttribute("id", "gl2");
+		this.astImg.setAttribute("class", "ast-img");
+		this.astImg.setAttribute("id", `asteroid-${i}}`);
+
+		this.astImg.style.backgroundPositionX = '-0vw';
+		this.astImg.style.backgroundPositionY = '-3vw';
 	}
 }
 
