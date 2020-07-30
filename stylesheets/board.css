@@ -31,6 +31,7 @@ main {
   /* top:0;
   left:0;
   z-index: 2; */
+
 }
 
 .grid-layer {
@@ -39,6 +40,10 @@ main {
   z-index: 2;
   overflow: hidden;
   position: absolute;
+}
+
+.grid-layer.dino {
+  z-index: 3;
 }
 
 .down {

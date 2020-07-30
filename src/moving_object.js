@@ -27,18 +27,29 @@ class MovingObject {
     this.row += this.yDir;
     this.col += this.xDir;
   }
-  
 
   isCollision() {
     let newRow = this.row + this.yDir;
     let newCol = this.col + this.xDir;
     
-    // debugger
     let tileId = `row${newRow}-col${newCol}`;
     let tile = document.getElementById(tileId);
 
     return tile.classList.contains("barrier");
   }
+
+  isDinoCollision() {
+    let dinoRow = this.dino.row;
+    let dinoCol = this.dino.col;
+
+    let newRow = this.row;
+    let newCol = this.col;
+
+    if (dinoRow === newRow && dinoCol === newCol) {
+      return true;
+    }
+    return false;
+  } 
 }
 
 module.exports = MovingObject;

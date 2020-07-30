@@ -10,6 +10,12 @@ class Board {
     this.renderBoard();
   }
 
+  resetBoard() {
+    let board = document.getElementById('board');
+    board.innerHTML = '';
+    this.renderBoard();
+  }
+
   renderBoard() {
     let board = document.getElementById('board');
 

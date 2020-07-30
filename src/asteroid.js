@@ -1,12 +1,13 @@
 const MovingObject = require('./moving_object');
 
 class Asteroid extends MovingObject{
-  constructor(row, col, xDir, yDir, board)  {
+  constructor(row, col, xDir, yDir, board, dino, game)  {
     super(row, col, xDir, yDir, board);
 
+    this.dino = dino;
     this.move = this.move.bind(this);
-
-    
+    this.game = game;
+    this.moving = true;
     this.createAsteroid();
     this.renderVectors();
     this.timer = setTimeout(this.move, 300);
@@ -14,21 +15,28 @@ class Asteroid extends MovingObject{
 
   move() {
     if (this.timer) clearTimeout(this.timer);
-    if (!this.isCollision()) {
+    if (!this.isCollision() && !this.isDinoCollision() && this.moving) {
       this.updateRowAndCol();
       this.xPos = this.xPos + (this.xDir * this.dx);
       this.yPos = this.yPos + (this.yDir * this.dy);
 
       this.placeObject();
-    } else {
-      // debugger
+    } else if (this.isDinoCollision()) {
+      this.dino.moving = false;
+      this.moving = false;
+      clearInterval(this.dino.interval);
+      clearTimeout(this.dino.timer)
+      let reset = this.game.newGame;
+      setTimeout(reset, 1000);
+      return;
+    } else if (this.moving) {
+      
       let value = this.board.grid[this.row][this.col];
       let vectors = this.board.vectorRef[value]
       let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
 
       this.updateDir(randomVector);
     }
-
     this.timer = setTimeout(this.move, 300);
   }
 
@@ -119,22 +127,11 @@ class Asteroid extends MovingObject{
     t2[14] = [2, 4, 8];
     t2[15] = [1, 2, 4, 8]; // left, right, up, down
 
-    // console.log(this.t2)
+
     console.log(this.board.grid)
-    // console.log(this.board.grid[this.row][this.col])
   }
 
-  // placeObject() {
-  //   this.el.style.left = `${this.xPos}px`;
-  //   this.el.style.top = `${this.yPos}px`;
-  // }
 
-  // animate() {
-  //   let prevTop = this.astImg.style.backgroundPosition
-  //   debugger
-  //   console.log(prevTop);
-  //   // this.astImg.style.backgroundPosition = 
-  // }
 }
 
 module.exports = Asteroid;

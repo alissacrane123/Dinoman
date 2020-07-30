@@ -5,8 +5,6 @@ class Dinosaur extends MovingObject {
   constructor(row, col, xDir, yDir, board) {
     super(row, col, xDir, yDir, board);
 
-    // this.board = board;
-
     this.dir = "right";
     this.moving = true;
     this.score = new Score();
@@ -28,31 +26,28 @@ class Dinosaur extends MovingObject {
     this.createDino();
     this.registerListeners();
     this.startAnimation();
-
-    // this.startMoving = this.startMoving.bind(this);
-    // this.startMoving();
-
-    console.log(this.dx, this.dy);
   }
 
   createDino() {
-    let dino = document.createElement("div");
-    dino.setAttribute("class", "grid-layer dino animate");
-    dino.setAttribute("id", "gl1");
-    let dinoImg = document.createElement("img");
-    dinoImg.setAttribute("src", "../dino/walk1.png");
-    dinoImg.setAttribute("class", "dino-img");
-    dinoImg.setAttribute("id", "dino-img");
-    dino.appendChild(dinoImg);
+    this.el = document.createElement("div");
+    this.dinoImg = document.createElement("img");
+    this.el.appendChild(this.dinoImg);
     let main = document.getElementById("main");
-    main.appendChild(dino);
-    this.el = dino;
-    this.dinoImg = dinoImg;
+    main.appendChild(this.el);
+    this.setAttributes();
+  }
+
+  setAttributes() {
+    this.el.setAttribute("class", "grid-layer dino animate");
+    this.el.setAttribute("id", "gl1");
+    this.dinoImg.setAttribute("src", "../dino/walk1.png");
+    this.dinoImg.setAttribute("class", "dino-img");
+    this.dinoImg.setAttribute("id", "dino-img");
     this.placeObject();
   }
 
   startAnimation() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       let dino = document.getElementById("dino-img");
       let segments = dino.src.split("/");
       let imgSrc = segments[segments.length - 1];
@@ -68,6 +63,7 @@ class Dinosaur extends MovingObject {
   }
 
   handleKeyPress(event) {
+    if (!this.moving) return;
     const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
     switch (key) {
       case "ArrowLeft":
@@ -99,7 +95,7 @@ class Dinosaur extends MovingObject {
     this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
     this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
 
-    if (!this.isCollision()) {
+    if (!this.isCollision() && this.moving) {
 
       this.xPos = this.xPos + this.xDir * this.step;
       this.yPos = this.yPos + this.yDir * this.step;
@@ -172,13 +168,7 @@ class Dinosaur extends MovingObject {
     document.addEventListener("keydown", this.handleKeyPress);
   }
 
-  // startMoving() {
-  //   this.posInterval = setInterval(() => {
-  //     if (this.moving && !this.isCollision()) {
-  //       this.updateRowAndCol(this.xDir, this.yDir);
-  //     }
-  //   }, 500);
-  // }
+
 }
 
 module.exports = Dinosaur;
