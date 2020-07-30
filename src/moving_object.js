@@ -4,14 +4,24 @@ class MovingObject {
     this.col = col;
     this.xDir = xDir;
     this.yDir = yDir;
-    this.board = board;
+		this.board = board;
+		this.dx = (window.innerWidth * 3) / 100;
+		this.dy = (window.innerWidth * 3) / 100;
+		
+		this.steps = 4;
+		this.step = this.dx / this.steps;
+		this.osx = 0;
+		this.osy = 0;
 
     this.yPos = this.getPxPosition(this.row);
     this.xPos = this.getPxPosition(this.col);
 
-    this.dx = (window.innerWidth * 3) / 100;
-    this.dy = (window.innerWidth * 3) / 100;
-  }
+
+		
+		this.move = this.move.bind(this);
+		this.timer = setTimeout(this.move, 300);
+	}
+
 
   getPxPosition(pos) {
     let px = (window.innerWidth / 100) * (pos * 3);
@@ -36,20 +46,10 @@ class MovingObject {
     let tile = document.getElementById(tileId);
 
     return tile.classList.contains("barrier");
-  }
+	}
+	
 
-  isDinoCollision() {
-    let dinoRow = this.dino.row;
-    let dinoCol = this.dino.col;
 
-    let newRow = this.row;
-    let newCol = this.col;
-
-    if (dinoRow === newRow && dinoCol === newCol) {
-      return true;
-    }
-    return false;
-  } 
 }
 
 module.exports = MovingObject;

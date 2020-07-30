@@ -18,9 +18,9 @@ class Dinosaur extends MovingObject {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.collectCoin = this.collectCoin.bind(this);
-    this.move = this.move.bind(this);
+    // this.move = this.move.bind(this);
     
-    this.timer = setTimeout(this.move, 50);
+    // this.timer = setTimeout(this.move, 50);
     
     
     this.createDino();

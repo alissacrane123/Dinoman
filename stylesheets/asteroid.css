@@ -19,5 +19,9 @@
 
 
 .asteroid.animate {
-  transition:left .7s, top .7s;
+  transition:left .1s, top .1s;
 }
+/* 
+.asteroid.animate {
+  transition:left .7s, top .7s;
+} */

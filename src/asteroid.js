@@ -5,23 +5,21 @@ class Asteroid extends MovingObject{
     super(row, col, xDir, yDir, board);
 
     this.dino = dino;
-    this.move = this.move.bind(this);
     this.game = game;
     this.moving = true;
     this.createAsteroid();
     this.renderVectors();
-    this.timer = setTimeout(this.move, 300);
+    this.timer = setTimeout(this.move, 100);
   }
 
   move() {
-    if (this.timer) clearTimeout(this.timer);
-    if (!this.isCollision() && !this.isDinoCollision() && this.moving) {
-      this.updateRowAndCol();
-      this.xPos = this.xPos + (this.xDir * this.dx);
-      this.yPos = this.yPos + (this.yDir * this.dy);
+		if (this.timer) clearTimeout(this.timer);
 
-      this.placeObject();
-    } else if (this.isDinoCollision()) {
+		this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
+		this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
+		
+    if (this.isDinoCollision()) {
+
       this.dino.moving = false;
       this.moving = false;
       clearInterval(this.dino.interval);
@@ -29,16 +27,29 @@ class Asteroid extends MovingObject{
       let reset = this.game.newGame;
       setTimeout(reset, 1000);
       return;
-    } else if (this.moving) {
-      
-      let value = this.board.grid[this.row][this.col];
-      let vectors = this.board.vectorRef[value]
-      let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
+			
+		} else if (!this.isCollision() && this.moving) {
+			this.xPos = this.xPos + this.xDir * this.step;
+			this.yPos = this.yPos + this.yDir * this.step;
 
-      this.updateDir(randomVector);
+			if (this.osx == 0 && this.osy === 0) {
+				this.updateRowAndCol();
+			}
+
+			this.placeObject();
+    } else if (this.moving) {
+      this.changeDir();
     }
-    this.timer = setTimeout(this.move, 300);
-  }
+    this.timer = setTimeout(this.move, 100);
+	}
+	
+	changeDir() {
+		let value = this.board.grid[this.row][this.col];
+		let vectors = this.board.vectorRef[value]
+		let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
+
+		this.updateDir(randomVector);
+	}
 
   updateDir(vector) {
     if (vector === 1) {
@@ -128,9 +139,16 @@ class Asteroid extends MovingObject{
     t2[15] = [1, 2, 4, 8]; // left, right, up, down
 
 
-    console.log(this.board.grid)
+    // console.log(this.board.grid)
   }
 
+	isDinoCollision() {
+		let radius = this.dx / 2;
+		let dx = Math.abs(this.dino.xPos - this.xPos);
+		let dy = Math.abs(this.dino.yPos - this.yPos);
+
+		return (dx + dy < radius);
+	} 
 
 }
 
