@@ -22,6 +22,14 @@ class MovingObject {
 		this.timer = setTimeout(this.move, 300);
 	}
 
+	updatePos() {
+		this.xPos = this.xPos + this.xDir * this.step;
+		this.yPos = this.yPos + this.yDir * this.step;
+
+		if (this.osx == 0 && this.osy === 0) {
+			this.updateRowAndCol();
+		}
+	}
 
   getPxPosition(pos) {
     let px = (window.innerWidth / 100) * (pos * 3);

@@ -6,42 +6,86 @@ class Asteroid extends MovingObject{
 
     this.dino = dino;
     this.game = game;
-    this.moving = true;
-    this.createAsteroid();
+		this.moving = true;
+		this.vector = this.getVector();
+
     this.renderVectors();
     this.timer = setTimeout(this.move, 100);
   }
 
   move() {
 		if (this.timer) clearTimeout(this.timer);
+		if (!this.moving) return;
 
 		this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
 		this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
 		
     if (this.isDinoCollision()) {
-
-      this.dino.moving = false;
-      this.moving = false;
-      clearInterval(this.dino.interval);
-      clearTimeout(this.dino.timer)
-      let reset = this.game.newGame;
-      setTimeout(reset, 1000);
+      this.handleDinoCollision();
       return;
 			
-		} else if (!this.isCollision() && this.moving) {
-			this.xPos = this.xPos + this.xDir * this.step;
-			this.yPos = this.yPos + this.yDir * this.step;
+		} else if (this.isCollision() ) {
+			// this.changeDir();
+			this.checkOptions();
 
-			if (this.osx == 0 && this.osy === 0) {
-				this.updateRowAndCol();
-			}
-
+		// } else if (this.osx == 0 && this.osy === 0) {
+		// 	this.checkOptions();
+    } else {
+			this.updatePos();
 			this.placeObject();
-    } else if (this.moving) {
-      this.changeDir();
     }
     this.timer = setTimeout(this.move, 100);
 	}
+
+	checkOptions() {
+		let value = this.board.grid[this.row][this.col];
+		let vectors = this.board.vectorRef[value]
+		let dirsToDino = this.shuffle(this.dirsToDino());
+		for (let i = 0; i < dirsToDino.length; i++) {
+			let newDir = dirsToDino[i];
+
+			if (vectors.includes(newDir)) {
+				this.updateDir(newDir);
+				return;
+			}
+		}
+
+		let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
+		this.updateDir(randomVector);
+	}
+
+	dirsToDino() {
+		let dx = this.dino.col - this.col;
+		let dy = this.dino.row - this.row;
+		let bestDirs = [];
+		if (dy < 0) {
+			bestDirs.push(4)
+		} else if (dy > 0) {
+			bestDirs.push(8);
+		} 
+
+		if (dx < 0) {
+			bestDirs.push(1);
+		} else if (dx > 0) {
+			bestDirs.push(2);
+		}
+		return bestDirs;
+	}
+
+	handleDinoCollision() {
+		this.dino.moving = false;
+		this.moving = false;
+		clearInterval(this.dino.interval);
+		clearTimeout(this.dino.timer)
+		let reset = this.game.newGame;
+		setTimeout(reset, 1000);
+	}
+
+	shuffle(array) {
+		array.sort(() => Math.random() - 0.5);
+		return array;
+	}
+
 	
 	changeDir() {
 		let value = this.board.grid[this.row][this.col];
@@ -52,6 +96,8 @@ class Asteroid extends MovingObject{
 	}
 
   updateDir(vector) {
+		if (this.vector === vector) return;
+
     if (vector === 1) {
       this.xDir = -1;
       this.yDir = 0;
@@ -64,28 +110,10 @@ class Asteroid extends MovingObject{
     } else if (vector === 8) {
       this.xDir = 0;
       this.yDir = 1;
-    }
+		}
+		this.vector = vector;
   }
 
-
-  createAsteroid(i) {
-    let asteroid = document.createElement("div");
-    asteroid.setAttribute("class", "grid-layer asteroid animate");
-    asteroid.setAttribute("id", "gl2");
-    let astImg = document.createElement("div");
-    astImg.setAttribute("class", "ast-img");
-    astImg.setAttribute("id", `asteroid-${i}}`);
-    asteroid.appendChild(astImg);
-    let main = document.getElementById("main");
-    main.appendChild(asteroid);
-    this.el = asteroid;
-    this.astImg = astImg;
-
-    this.astImg.style.backgroundPositionX = '-0vw';
-    this.astImg.style.backgroundPositionY = '-3vw';
-    this.animate();
-    this.placeObject();
-  }
 
   animate() {
     let diff = -3;
@@ -150,6 +178,12 @@ class Asteroid extends MovingObject{
 		return (dx + dy < radius);
 	} 
 
+	getVector() {
+		if (this.xDir > 0) return 2;
+		if (this.xDir < 0) return 1;
+		if (this.yDir > 0) return 8;
+		if (this.yDir < 0) return 4;
+	}
 }
 
 module.exports = Asteroid;

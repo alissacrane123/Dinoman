@@ -18,23 +18,7 @@ class Dinosaur extends MovingObject {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.collectCoin = this.collectCoin.bind(this);
-    // this.move = this.move.bind(this);
-    
-    // this.timer = setTimeout(this.move, 50);
-    
-    
-    this.createDino();
     this.registerListeners();
-    this.startAnimation();
-  }
-
-  createDino() {
-    this.el = document.createElement("div");
-    this.dinoImg = document.createElement("img");
-    this.el.appendChild(this.dinoImg);
-    let main = document.getElementById("main");
-    main.appendChild(this.el);
-    this.setAttributes();
   }
 
   setAttributes() {
@@ -91,19 +75,13 @@ class Dinosaur extends MovingObject {
 
   move() {
     if (this.timer) clearTimeout(this.timer);
+		if (!this.moving) return;
 
     this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
     this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
 
-    if (!this.isCollision() && this.moving) {
-
-      this.xPos = this.xPos + this.xDir * this.step;
-      this.yPos = this.yPos + this.yDir * this.step;
-
-      if (this.osx == 0 && this.osy === 0) {
-        this.updateRowAndCol();
-      } 
-
+    if (!this.isCollision()) {
+			this.updatePos();
       this.placeObject();
       this.collectCoin();
     }
