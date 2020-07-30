@@ -79,7 +79,7 @@ class Dinosaur extends MovingObject {
 
     this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
     this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
-
+		// this.updateOffset();
     if (!this.isCollision()) {
 			this.updatePos();
       this.placeObject();

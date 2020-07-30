@@ -31,6 +31,7 @@ class MovingObject {
 		}
 	}
 
+
   getPxPosition(pos) {
     let px = (window.innerWidth / 100) * (pos * 3);
     return px;

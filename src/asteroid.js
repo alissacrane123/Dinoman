@@ -19,19 +19,21 @@ class Asteroid extends MovingObject{
 
 		this.osx = Math.abs((this.osx + 1) % 4 * this.xDir);
 		this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
-		
+
     if (this.isDinoCollision()) {
       this.handleDinoCollision();
       return;
 			
 		} else if (this.isCollision() ) {
-			// this.changeDir();
 			this.checkOptions();
 
-		// } else if (this.osx == 0 && this.osy === 0) {
-		// 	this.checkOptions();
     } else {
 			this.updatePos();
+
+			if (this.osx == 0 && this.osy === 0) {
+				this.checkOptions();
+			}
+
 			this.placeObject();
     }
     this.timer = setTimeout(this.move, 100);
@@ -41,6 +43,7 @@ class Asteroid extends MovingObject{
 		let value = this.board.grid[this.row][this.col];
 		let vectors = this.board.vectorRef[value]
 		let dirsToDino = this.shuffle(this.dirsToDino());
+		dirsToDino = dirsToDino.filter(dir => !this.isOpposite(dir))
 		for (let i = 0; i < dirsToDino.length; i++) {
 			let newDir = dirsToDino[i];
 
@@ -52,6 +55,14 @@ class Asteroid extends MovingObject{
 
 		let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
 		this.updateDir(randomVector);
+	}
+
+	isOpposite(dir) {
+		if (this.vector === 2 && dir === 1) return true;
+		if (this.vector === 4 && dir === 8) return true
+		if (this.vector === 1 && dir === 2) return true;
+		if (this.vector === 8 && dir === 4) return true
+		return false;
 	}
 
 	dirsToDino() {
@@ -87,13 +98,13 @@ class Asteroid extends MovingObject{
 	}
 
 	
-	changeDir() {
-		let value = this.board.grid[this.row][this.col];
-		let vectors = this.board.vectorRef[value]
-		let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
+	// changeDir() {
+	// 	let value = this.board.grid[this.row][this.col];
+	// 	let vectors = this.board.vectorRef[value]
+	// 	let randomVector = vectors[Math.floor(Math.random() * vectors.length)];
 
-		this.updateDir(randomVector);
-	}
+	// 	this.updateDir(randomVector);
+	// }
 
   updateDir(vector) {
 		if (this.vector === vector) return;
