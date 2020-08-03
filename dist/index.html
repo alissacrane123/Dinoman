@@ -5,21 +5,37 @@
   <!-- <meta name="viewport" content="width=500, initial-scale=2.0"> -->
   <meta content="width=640, initial-scale=0.47, maximum-scale=1.0, user-scalable=1" name="viewport">
 
+	<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../stylesheets/reset.css">
+  <link rel="stylesheet" href="../stylesheets/interface.css">
   <link rel="stylesheet" href="../stylesheets/board.css">
   <link rel="stylesheet" href="../stylesheets/asteroid.css">
   <title>Pacman</title>
   <script src="./main.js"></script>
 </head>
 <body>
-  <main id="main">
-    <div id="board">
-    </div>
-  </main>
-  <section>
-    <div id="score"></div>
-  </section>
-  <button id="new-game">New Game</button>
-  <img src="../images/asteroids.png" id="test" alt="">
+	<h1>Dinoman</h1>
+	<div class="interface">
+		<section>
+			<button id="start">Start</button>
+			<button id="new-game">New Game</button>
+		</section>
+		<main id="main">
+			<div id="board">
+			</div>
+		</main>
+		<section class="score">
+			<h2>Score</h2>
+			<div id="score"></div>
+			<h2>Lives</h2>
+			<div id="lives">
+				<!-- <img src="../dino/walk1.png" class="dino-img">
+				<img src="../dino/walk1.png" class="dino-img">
+				<img src="../dino/walk1.png" class="dino-img"> -->
+			</div>
+		</section>
+	</div>
+
+  <!-- <img src="../images/asteroids.png" id="test" alt=""> -->
 </body>
 </html>

@@ -1,0 +1,72 @@
+html, body {
+	height:100vh;
+	width:100vw;
+}
+
+body {
+	display: flex;
+	/* justify-content: center; */
+	align-items: center;
+	flex-direction: column;
+	background-image: url('../images/jungle.jpg');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.interface {
+	display:flex;
+	width: 100%;
+  justify-content: space-evenly;
+}
+
+.interface > section {
+	    /* margin: 0 2vw; */
+    padding: 2vw;
+		display: flex;
+		    justify-content: center;
+		flex-direction: column;
+		width:15vw;
+		box-sizing: border-box;
+}
+
+main {
+  width: 60vw;
+	position: relative;
+	    border: 10px solid #bc1b0b;
+    border-radius: 5px;
+}
+
+
+h1 {
+	font-family: 'Indie Flower', cursive;
+	    color: #fff660;
+    font-size: 7vw;
+    margin: 2vh;
+    font-weight: bold;
+}
+
+button {
+	    font-size: 2vw;
+    padding: 1vw 0vw;
+    width: 13vw;
+    margin-bottom: 2vw;
+    background: orange;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+
+.interface .score {
+	background:orange;
+	font-size:3vw;
+	border-radius:5px;
+	margin: auto 0;
+	font-size: 2vw;
+}
+
+.dino-img.live {
+	height: 2.5vw;
+}

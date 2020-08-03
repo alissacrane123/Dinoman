@@ -34,7 +34,11 @@ class Board {
           row[j] = 1;
         } else {
           row[j] = 0;
-        }
+				}
+				
+				if (([5,6].includes(i) && [9,10, 11].includes(j))) {
+					src = '../images/blank.gif'
+				}
         tile.setAttribute('src', src);
         tile.setAttribute('class', `tile-img ${type}`)
         tileCont.setAttribute('class', `tile ${type}`)
@@ -90,7 +94,8 @@ class Board {
   getImgSrc(row, col) {
     if (col === 0 || col === 19 || row=== 0 || row=== 13) {
       return this.getBorderSrc(row, col);
-    }
+		}
+
     if ((row === 2 && [3, 9, 10, 16].includes(col)) ||
         (row === 7 && [3,9,10,16].includes(col))    ||
         (row === 4 && [9, 10].includes(col)) ||

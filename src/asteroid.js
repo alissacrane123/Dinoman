@@ -1,16 +1,16 @@
 const MovingObject = require('./moving_object');
 
 class Asteroid extends MovingObject{
-  constructor(row, col, xDir, yDir, board, dino, game)  {
-    super(row, col, xDir, yDir, board);
+  constructor(row, col, xDir, yDir, board, game, dino)  {
+    super(row, col, xDir, yDir, board, game);
 
     this.dino = dino;
-    this.game = game;
+    // this.game = game;
 		this.moving = true;
 		this.vector = this.getVector();
 
     this.renderVectors();
-    this.timer = setTimeout(this.move, 100);
+    // this.timer = setTimeout(this.move, 100);
   }
 
   move() {
@@ -21,7 +21,8 @@ class Asteroid extends MovingObject{
 		this.osy = Math.abs((this.osy + 1) % 4 * this.yDir);
 
     if (this.isDinoCollision()) {
-      this.handleDinoCollision();
+			this.handleDinoCollision();
+			// this.game.handleLoss();
       return;
 			
 		} else if (this.isCollision() ) {
@@ -85,8 +86,8 @@ class Asteroid extends MovingObject{
 
 	handleDinoCollision() {
 		this.game.clearAllTimers();
-		let reset = this.game.newGame;
-		setTimeout(reset, 1000);
+		// let reset = this.game.newGame;
+		setTimeout(this.game.handleLoss, 1000);
 	}
 
 	shuffle(array) {
@@ -116,16 +117,16 @@ class Asteroid extends MovingObject{
 
 
   animate() {
-    let diff = -3;
+    let diff = -2.5;
     setInterval(() => {
       let x = this.astImg.style.backgroundPositionX;
       let y = this.astImg.style.backgroundPositionY;
       let xNum = Number(x.slice(0, x.length - 2))
       
-      if (xNum === -24) {
-        diff = 3
+      if (xNum === -20) {
+        diff = 2.5
       } else if (xNum === 0) {
-        diff = -3
+        diff = -2.5
       }
 
       xNum = xNum + diff;
@@ -186,13 +187,13 @@ class Asteroid extends MovingObject{
 	}
 
 	setAttributes(i) {
-		this.el.setAttribute("class", "grid-layer asteroid animate");
-		this.el.setAttribute("id", "gl2");
+		this.el.setAttribute("class", "grid-layer asteroid animate gl2");
+		this.el.setAttribute("id", `asteroid-${i}`);
 		this.astImg.setAttribute("class", "ast-img");
-		this.astImg.setAttribute("id", `asteroid-${i}}`);
+		this.astImg.setAttribute("id", `asteroid-img-${i}}`);
 
 		this.astImg.style.backgroundPositionX = '-0vw';
-		this.astImg.style.backgroundPositionY = '-3vw';
+		this.astImg.style.backgroundPositionY = '-2.5vw';
 	}
 }
 

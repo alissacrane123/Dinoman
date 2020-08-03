@@ -1,25 +1,67 @@
 const Board = require('./board');
 const Dinosaur = require('./dinosaur');
 const Asteroid = require('./asteroid')
+const Score = require('./score');
 
 class Game {
   constructor() {
-    this.board = new Board(20, 14);
+		this.board = new Board(20, 14);
+		this.currentScore = null;
+		this.lives = null;
+
     this.newGame = this.newGame.bind(this);
+    this.start = this.start.bind(this);
+    this.handleLoss = this.handleLoss.bind(this);
     this.registerListeners();
-    this.newGame();
+		this.newGame();
+		
   }
 
   registerListeners() {
-    document.getElementById('new-game').addEventListener('click', this.newGame)
-  }
+    document.getElementById('new-game').addEventListener('click', this.newGame);
+    document.getElementById('start').addEventListener('click', this.start);
+	}
+	
+	updateScore() {
+		this.currentScore.updateScore();
+	}
 
   newGame() {
+		// debugger
     if (this.dino) {
 			this.removeMovingObjects();
+			this.clearAllTimers();
     }
 		this.board.resetBoard();
+		this.lives = 3;
+		this.currentScore = new Score();
+		this.updateLives()
 		this.createMovingObjects();
+	}
+
+	handleLoss() {
+		this.removeMovingObjects();
+		this.board.resetBoard();
+		// debugger
+		if (this.lives > 0) {
+			this.lives--
+			this.currentScore.resetScore();
+			this.updateLives(this.lives);
+		}
+		this.createMovingObjects();
+	}
+
+	updateLives() {
+		let lives = document.getElementById('lives');
+		let img = '<img src="../dino/walk1.png" class="dino-img live">'
+		let html = '';
+		let i = 0;
+		while (i < this.lives) {
+			// debugger
+			html += img;
+			i++
+		}
+		lives.innerHTML = html;
 	}
 
 	removeMovingObjects() {
@@ -31,13 +73,13 @@ class Game {
 	}
 
 	createMovingObjects() {
-		this.dino = new Dinosaur(8, 9, 1, 0, this.board);
+		this.dino = new Dinosaur(8, 9, 1, 0, this.board, this);
 		this.createDinoEl();
 
 		this.asteroids = []
 		let ops = [[5, 9, 0, 1], [6, 9, 1, 0], [6, 10, -1, 0], [5, 10, 0, -1]];
 		for (let i = 0; i < 4; i++) {
-			let asteroid = new Asteroid(...ops[i], this.board, this.dino, this);
+			let asteroid = new Asteroid(...ops[i], this.board, this,this.dino);
 			this.asteroids.push(asteroid);
 			this.createAsteroidEl(i);
 		}
@@ -75,17 +117,19 @@ class Game {
 
 		asteroid.el = asteroidEl;
 		asteroid.astImg = astImg;
-
-		// asteroid.setAttribute("class", "grid-layer asteroid animate");
-		// asteroid.setAttribute("id", "gl2");
-		// astImg.setAttribute("class", "ast-img");
-		// astImg.setAttribute("id", `asteroid-${i}}`);
-
-		// this.asteroids[i].astImg.style.backgroundPositionX = '-0vw';
-		// this.asteroids[i].astImg.style.backgroundPositionY = '-3vw';
+		asteroid.i = i;
 		asteroid.setAttributes(i);
 		asteroid.animate();
 		asteroid.placeObject();
+
+		// // asteroid.timer = setTimeout(asteroid.move, i * 500);
+	}
+
+	start() {
+		this.dino.timer = setTimeout(this.dino.move, 100)
+		this.asteroids.forEach((asteroid, i)=> {
+			asteroid.timer = setTimeout(asteroid.move, i * 500);
+		})
 	}
 
 }

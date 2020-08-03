@@ -1,13 +1,14 @@
-const Score = require('./score');
+// const Score = require('./score');
 const MovingObject = require('./moving_object');
 
 class Dinosaur extends MovingObject {
-  constructor(row, col, xDir, yDir, board) {
-    super(row, col, xDir, yDir, board);
+  constructor(row, col, xDir, yDir, board, game) {
+    super(row, col, xDir, yDir, board,game);
 
     this.dir = "right";
-    this.moving = true;
-    this.score = new Score();
+		this.moving = true;
+		// this.game = game;
+    // this.score = new Score();
     
 
     this.steps = 4;
@@ -18,7 +19,8 @@ class Dinosaur extends MovingObject {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.collectCoin = this.collectCoin.bind(this);
-    this.registerListeners();
+		this.registerListeners();
+		// this.timer = setTimeout(this.move, 100);
   }
 
   setAttributes() {
@@ -135,7 +137,7 @@ class Dinosaur extends MovingObject {
     let tile = document.getElementById(tileId);
 
     if (tile.classList.contains("coin")) {
-      this.score.updateScore();
+      this.game.updateScore();
       let img = document.querySelector(`#${tile.id} > img`);
       img.setAttribute("src", "../images/blank.gif");
       tile.classList.remove("coin");

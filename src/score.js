@@ -13,7 +13,12 @@ class Score {
   updateScore() {
     this.score += 1;
     this.setScore();
-  }
+	}
+	
+	resetScore() {
+		this.score = 0;
+		this.setScore();
+	}
 }
 
 module.exports = Score;

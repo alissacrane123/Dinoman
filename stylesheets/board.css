@@ -1,32 +1,33 @@
-main {
-  width: 60vw;
-  position: relative;
-}
 
 #board {
   display:flex;
-  width: 60vw;
+	width: 50vw;
+	/* width: 100%; */
   flex-wrap:wrap;
-  /* position:relative; */
+	/* position:relative; */
+	
+    /* border: 10px solid #bc1b0b; */
+    /* border-radius: 5px; */
+
 }
 
 .tile {
-  width:3vw;
-  height:3vw;
+  width:2.5vw;
+  height:2.5vw;
   position: relative;
 }
 
 .tile-img {
-  width:3vw;
-  height:3vw;
+  width:2.5vw;
+  height:2.5vw;
   position: absolute;
   top:0;
   left:0;
 }
 
 .dino-img {
- /* width:3vw; */
-  height:3vw;
+ /* width:2.5vw; */
+  height:2.5vw;
   /* position: absolute; */
   /* top:0;
   left:0;
@@ -35,8 +36,8 @@ main {
 }
 
 .grid-layer {
-  height:3vw;
-  width:3vw;
+  height:2.5vw;
+  width:2.5vw;
   z-index: 2;
   overflow: hidden;
   position: absolute;

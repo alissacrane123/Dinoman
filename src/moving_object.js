@@ -1,12 +1,13 @@
 class MovingObject {
-  constructor(row, col, xDir, yDir, board) {
+  constructor(row, col, xDir, yDir, board, game) {
     this.row = row;
     this.col = col;
     this.xDir = xDir;
     this.yDir = yDir;
 		this.board = board;
-		this.dx = (window.innerWidth * 3) / 100;
-		this.dy = (window.innerWidth * 3) / 100;
+		this.game = game;
+		this.dx = (window.innerWidth * 2.5) / 100;
+		this.dy = (window.innerWidth * 2.5) / 100;
 		
 		this.steps = 4;
 		this.step = this.dx / this.steps;
@@ -19,7 +20,7 @@ class MovingObject {
 
 		
 		this.move = this.move.bind(this);
-		this.timer = setTimeout(this.move, 300);
+		// this.timer = setTimeout(this.move, 2.500);
 	}
 
 	updatePos() {
@@ -33,7 +34,7 @@ class MovingObject {
 
 
   getPxPosition(pos) {
-    let px = (window.innerWidth / 100) * (pos * 3);
+    let px = (window.innerWidth / 100) * (pos * 2.5);
     return px;
   }
 

@@ -4,15 +4,15 @@
 
 
 .asteroid {
-  height: 3vw;
-  width: 3vw;
+  height: 2.5vw;
+  width: 2.5vw;
 }
 
 .ast-img {
-  height:3vw;
-  width: 3vw;
+  height:2.5vw;
+  width: 2.5vw;
   /* background-size: 46.823vw 44.635vw; */
-  background-size: 27vw 27vw;
+  background-size: 22.5vw 22.5vw;
   /* background-position: -0vw -3vw; */
   background-image: url('../images/asteroids.png');
 }
