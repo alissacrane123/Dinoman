@@ -18,7 +18,7 @@
 	<div class="interface">
 		<section>
 			<button id="start">Start</button>
-			<button id="new-game">New Game</button>
+			<button id="new-game" class="new-game">Restart</button>
 		</section>
 		<main id="main">
 			<div id="board">
@@ -29,13 +29,15 @@
 			<div id="score"></div>
 			<h2>Lives</h2>
 			<div id="lives">
-				<!-- <img src="../dino/walk1.png" class="dino-img">
-				<img src="../dino/walk1.png" class="dino-img">
-				<img src="../dino/walk1.png" class="dino-img"> -->
 			</div>
 		</section>
 	</div>
-
+	<section id="modal" class="hide">
+		<div class="modal">
+			<h1 class="game-over">Game Over</h1>
+			<button id="new-game" class="new-game">New Game</button>
+		</div>
+	</section>
   <!-- <img src="../images/asteroids.png" id="test" alt=""> -->
 </body>
 </html>

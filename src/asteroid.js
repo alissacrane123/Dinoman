@@ -87,7 +87,7 @@ class Asteroid extends MovingObject{
 	handleDinoCollision() {
 		this.game.clearAllTimers();
 		// let reset = this.game.newGame;
-		setTimeout(this.game.handleLoss, 1000);
+		setTimeout(this.game.handleLoss, 1500);
 	}
 
 	shuffle(array) {

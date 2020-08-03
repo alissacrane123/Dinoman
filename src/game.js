@@ -18,7 +18,10 @@ class Game {
   }
 
   registerListeners() {
-    document.getElementById('new-game').addEventListener('click', this.newGame);
+		document.querySelectorAll('.new-game').forEach(button => {
+			button.addEventListener('click', this.newGame);
+		})
+    // document.getElementById('new-game').addEventListener('click', this.newGame);
     document.getElementById('start').addEventListener('click', this.start);
 	}
 	
@@ -29,6 +32,7 @@ class Game {
   newGame() {
 		// debugger
     if (this.dino) {
+			document.getElementById('modal').classList.add('hide')
 			this.removeMovingObjects();
 			this.clearAllTimers();
     }
@@ -43,12 +47,20 @@ class Game {
 		this.removeMovingObjects();
 		this.board.resetBoard();
 		// debugger
+		this.lives--
+		this.updateLives(this.lives);
 		if (this.lives > 0) {
-			this.lives--
 			this.currentScore.resetScore();
-			this.updateLives(this.lives);
+		} else {
+			// debugger
+			this.handleGameOver();
 		}
 		this.createMovingObjects();
+	}
+
+	handleGameOver() {
+		// debugger
+		document.getElementById('modal').classList.remove('hide')
 	}
 
 	updateLives() {

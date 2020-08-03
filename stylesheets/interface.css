@@ -15,6 +15,35 @@ body {
 	background-size: cover;
 }
 
+.hide {
+	display:none !important;
+}
+
+#modal {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: #80808082;
+	display: flex;
+	/* align-items: center; */
+	justify-content: center;
+}
+
+.modal {
+    background: black;
+    padding: 2vw;
+    border-radius: 10px;
+    /* border: 10px solid white; */
+    z-index: 3;
+    /* height: auto; */
+    margin: auto;
+}
+
+.game-over {
+    color: red;
+    font-family: sans-serif;
+}
+
 .interface {
 	display:flex;
 	width: 100%;
@@ -32,7 +61,7 @@ body {
 }
 
 main {
-  width: 60vw;
+  width: 50vw;
 	position: relative;
 	    border: 10px solid #bc1b0b;
     border-radius: 5px;
@@ -52,7 +81,7 @@ button {
     padding: 1vw 0vw;
     width: 13vw;
     margin-bottom: 2vw;
-    background: orange;
+    background: white;
     border-radius: 5px;
     outline: none;
     border: none;
@@ -60,11 +89,13 @@ button {
 
 
 .interface .score {
-	background:orange;
+	background: white;
 	font-size:3vw;
 	border-radius:5px;
 	margin: auto 0;
 	font-size: 2vw;
+	height: 15vw;
+	justify-content: space-between;
 }
 
 .dino-img.live {
