@@ -26,7 +26,7 @@ class Dinosaur extends MovingObject {
   setAttributes() {
     this.el.setAttribute("class", "grid-layer dino animate");
     this.el.setAttribute("id", "gl1");
-    this.dinoImg.setAttribute("src", "../dino/walk1.png");
+    this.dinoImg.setAttribute("src", "./dino/walk1.png");
     this.dinoImg.setAttribute("class", "dino-img");
     this.dinoImg.setAttribute("id", "dino-img");
     this.placeObject();
@@ -44,7 +44,7 @@ class Dinosaur extends MovingObject {
       } else {
         srcNum += 1;
       }
-      dino.setAttribute("src", `../dino/walk${srcNum}.png`);
+      dino.setAttribute("src", `./dino/walk${srcNum}.png`);
     }, 50);
   }
 
@@ -139,7 +139,7 @@ class Dinosaur extends MovingObject {
     if (tile.classList.contains("coin")) {
       this.game.updateScore();
       let img = document.querySelector(`#${tile.id} > img`);
-      img.setAttribute("src", "../images/blank.gif");
+      img.setAttribute("src", "./images/blank.gif");
       tile.classList.remove("coin");
     }
   }

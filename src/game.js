@@ -65,7 +65,7 @@ class Game {
 
 	updateLives() {
 		let lives = document.getElementById('lives');
-		let img = '<img src="../dino/walk1.png" class="dino-img live">'
+		let img = '<img src="./dino/walk1.png" class="dino-img live">'
 		let html = '';
 		let i = 0;
 		while (i < this.lives) {
